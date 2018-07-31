@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import Validation from '../service/Validation';
-
 class FormField extends Component {
   constructor(props){
     super(props);
@@ -25,16 +23,8 @@ class FormField extends Component {
     this.props.handleEmailChange(text);
   };
 
-  _handlePasswordChange = text => {
-    if(Validation.password(text) === true){
-      this.setState({
-        passwordText: text,
-        passwordValid: true
-      });
-    } else
-      this.setState({
-        passwordValid: false
-      });
+  _childHandlePasswordChange = text => {
+    this.props.handlePasswordChange(text);
   };
 
   render(){
@@ -51,8 +41,8 @@ class FormField extends Component {
           style={styles.textField}
           placeholder='Password'
           type='password'
-          error={this.state.validation !== false && this.state.passwordValid !== true}
-          onChange={(text) => {this._handlePasswordChange(text.target.value)}}
+          error={this.props.validation !== false && this.props.passwordValid !== true}
+          onChange={(text) => {this._childHandlePasswordChange(text.target.value)}}
           fullWidth
         />
         <Button

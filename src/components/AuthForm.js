@@ -30,10 +30,7 @@ class AuthForm extends Component {
     this.setState({ open: true });
   };
 
-  handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+  handleClose = () => {
     this.setState({ open: false });
   };
 
@@ -41,6 +38,7 @@ class AuthForm extends Component {
     this.setState({
       validation: true
     });
+    this.handleClick();
   };
 
   _handleEmailChange = text => {
@@ -73,6 +71,8 @@ class AuthForm extends Component {
         <Message
           handleClose={this.handleClose}
           open={this.state.open !== false}
+          emailValid={this.state.emailValid}
+          passwordValid={this.state.passwordValid}
         />
         <div className="authForm">
           <div style={styles.wrapper}>
@@ -105,7 +105,8 @@ class AuthForm extends Component {
                   handleLogin={this._handleLogin}
                   handleEmailChange={this._handleEmailChange}
                   emailValid={this.state.emailValid}
-
+                  handlePasswordChange={this._handlePasswordChange}
+                  passwordValid={this.state.passwordValid}
                 />
               </CardContent>
             </Card>
