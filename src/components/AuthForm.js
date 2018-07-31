@@ -7,6 +7,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Validation from "../service/Validation";
 
+import { withRouter } from 'react-router-dom';
+
 class AuthForm extends Component {
   constructor(props){
     super(props);
@@ -39,6 +41,9 @@ class AuthForm extends Component {
       validation: true
     });
     this.handleClick();
+    if(this.state.emailValid && this.state.passwordValid){
+      this.props.history.push('/listPage');
+    }
   };
 
   _handleEmailChange = text => {
@@ -75,7 +80,7 @@ class AuthForm extends Component {
           passwordValid={this.state.passwordValid}
         />
         <div className="authForm">
-          <div style={styles.wrapper}>
+          <div>
             <Card
               style={styles.background}
               true={true}>
@@ -118,9 +123,6 @@ class AuthForm extends Component {
 }
 
 const styles = {
-  wrapper: {
-    //position: 'relative'
-  },
   background: {
     marginLeft: '23%',
     marginRight: '23%',
@@ -157,4 +159,4 @@ const styles = {
   }
 };
 
-export default AuthForm;
+export default withRouter(AuthForm);
